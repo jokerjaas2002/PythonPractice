@@ -3,15 +3,15 @@ import random
 def juego_adivinanzas():
     while True:
         # Elegir el nivel de dificultad
-        nivel = input("Elige un nivel de dificultad (fácil, medio, difícil): ").lower()
-        if nivel == 'fácil':
+        nivel = input("Elige un nivel de dificultad (facil, medio, dificil): ").lower()
+        if nivel == 'facil':
             numero_secreto = random.randint(1, 10)
         elif nivel == 'medio':
             numero_secreto = random.randint(1, 50)
-        elif nivel == 'difícil':
+        elif nivel == 'dificil':
             numero_secreto = random.randint(1, 100)
         else:
-            print("Nivel no válido. Por favor, elige fácil, medio o difícil.")
+            print("Nivel no válido. Por favor, elige facil, medio o dificil.")
             continue
 
         intentos = 0
@@ -35,8 +35,8 @@ def juego_adivinanzas():
                 print("Por favor, introduce un número válido.")
 
         # Preguntar si el jugador quiere jugar de nuevo
-        jugar_nuevamente = input("¿Quieres jugar de nuevo? (sí/no): ").lower()
-        if jugar_nuevamente != 'sí':
+        jugar_nuevamente = input("¿Quieres jugar de nuevo? (si/no): ").lower()
+        if jugar_nuevamente != 'si':
             print("¡Gracias por jugar! Hasta luego.")
             break
 
