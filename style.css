@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: hsl(240, 78%, 9%);
+    color: aliceblue;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: hsl(240, 37%, 40%);
+    border-bottom: 1px solid hsl(240, 78%, 9%);
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+}
+
+ul {
+    display: flex;
+    gap: 1rem;
+}
+
+li {
+    display: flex;
+    gap: 1rem;
+    text-decoration: none;
+    text-emphasis: none;
+    color: aliceblue;
+}
+
+a {
+    text-decoration: none;
+    color: aliceblue;
+}
+
+
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+

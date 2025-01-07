@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .calculator input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: right;
+        }
+        .calculator .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .calculator button {
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .calculator button.number {
+            background-color: #f8f9fa;
+            color: #000;
+        }
+        .calculator button.number:hover {
+            background-color: #e9ecef;
+        }
+        .calculator button.operator {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .calculator button.operator:hover {
+            background-color: #0056b3;
+        }
+        .calculator button.clear {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .calculator button.clear:hover {
+            background-color: #a71d2a;
+        }
+        .calculator button.equal {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .calculator button.equal:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" class="form-control" disabled>
+        <div class="buttons">
+            <button onclick="clearDisplay()" class="clear">C</button>
+            <button onclick="appendOperator('/')" class="operator">/</button>
+            <button onclick="appendOperator('*')" class="operator">*</button>
+            <button onclick="appendOperator('-')" class="operator">-</button>
+            <button onclick="appendNumber('7')" class="number">7</button>
+            <button onclick="appendNumber('8')" class="number">8</button>
+            <button onclick="appendNumber('9')" class="number">9</button>
+            <button onclick="appendOperator('+')" class="operator">+</button>
+            <button onclick="appendNumber('4')" class="number">4</button>
+            <button onclick="appendNumber('5')" class="number">5</button>
+            <button onclick="appendNumber('6')" class="number">6</button>
+            <button onclick="calculateResult()" class="equal">=</button>
+            <button onclick="appendNumber('1')" class="number">1</button>
+            <button onclick="appendNumber('2')" class="number">2</button>
+            <button onclick="appendNumber('3')" class="number">3</button>
+            <button onclick="appendNumber('0')" class="number">0</button>
+            <button onclick="appendNumber('.')" class="number">.</button>
+        </div>
+    </div>
+
+    <script>
+        function appendNumber(number) {
+            document.getElementById('display').value += number;
+        }
+
+        function appendOperator(operator) {
+            document.getElementById('display').value += operator;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function calculateResult() {
+            const display = document.getElementById('display');
+            const expression = display.value;
+
+            // Enviar la expresión al backend para calcular
+            fetch('/calculate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    operation: 'calculate',
+                    expression: expression,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    display.value = data.error;
+                } else {
+                    display.value = data.result;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                display.value = 'Error';
+            });
+        }
+    </script>
+</body>
+</html>
